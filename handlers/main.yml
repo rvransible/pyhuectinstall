@@ -1,0 +1,12 @@
+---
+# handlers file for pyhuectinstall
+  - name: (re)start the pyhuect.service
+    become: true
+    ansible.builtin.systemd:
+      name: pyhuect.service
+      state: restarted
+
+  - name: Reload the systemd daemon
+    become: true
+    ansible.builtin.systemd:
+      daemon_reload: yes

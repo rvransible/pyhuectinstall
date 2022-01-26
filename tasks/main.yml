@@ -1,0 +1,30 @@
+---
+  # tasks file for pyhuectinstall
+  # It currently installs the program under the directory /home/username/ which is quite dirty. 
+  # Perhaps I'll create a better folder for it in the future.
+  # Most likely I wont' as it works just fine for me.
+  # Call me lazy...
+
+  - name: Create pyhuect target directory
+    become: true
+    become_user: "{{ user }}"
+    file: 
+      path: "/home/{{ user }}/test"
+      state: directory
+      mode: '0644'
+      recurse: 'yes'
+
+  - name: Git checkout pyhuect
+    become: true
+    become_user: "{{ user }}"
+    ansible.builtin.git:
+      repo: git@github.com:robertreems/pyhuect.git
+      dest: "/home/{{ user }}/pyhuect/"
+    notify: (re)start the pyhuect.service
+
+  - name: Set Systemctl service file
+    become: true
+    ansible.builtin.template:
+      src: ./templates/pyhuect.service.j2
+      dest: /etc/systemd/system/pyhuect.service
+    notify: Reload the systemd daemon

@@ -1,0 +1,4 @@
+---
+# defaults file for pyhuectinstall
+  # The user where to install the application
+  user: ''

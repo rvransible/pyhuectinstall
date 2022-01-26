@@ -1,0 +1,14 @@
+﻿[Unit]
+Description=Roberts pyhue ct service
+Requires=network.target
+
+[Service]
+Type=simple
+User={{ user }}
+ExecStart=/usr/bin/python3 /home/{{ user }}/pyhuect/main.py
+
+Restart=always
+RestartSec=60
+
+[Install]
+WantedBy=multi-user.target

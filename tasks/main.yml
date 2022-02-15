@@ -22,6 +22,19 @@
       dest: "/home/{{ user }}/pyhuect/"
     notify: (re)start the pyhuect.service
 
+  - name: Set config file
+    become: true
+    become_user: "{{ user }}"
+    blockinfile:
+      path: "/home/{{ user }}/.hue/hueconf.ini"
+      block: | 
+        [Hue]
+        ip = 10.0.0.2
+      state: present
+      create: yes
+      owner: "{{ user }}"
+    notify: (re)start the pyhuect.service
+
   - name: Set Systemctl service file
     become: true
     ansible.builtin.template:

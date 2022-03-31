@@ -29,7 +29,7 @@
       path: "/home/{{ user }}/.hue/hueconf.ini"
       block: | 
         [Hue]
-        ip = 10.0.0.2
+        ip = {{ hueIP }}
       state: present
       create: yes
       owner: "{{ user }}"

@@ -28,8 +28,12 @@
     blockinfile:
       path: "/home/{{ user }}/.hue/hueconf.ini"
       block: | 
-        [Hue]
-        ip = {{ hueIP }}
+        [AZ_LOG_ANALYTICS_WORKSPACE]
+        workspace_id = {{ log_analytics_workspace_id }}
+        primary_key = {{ log_analytics_primary_key }}
+
+        [HOME_WIZARD_P1]
+        hwip = {{ hwip }}
       state: present
       create: yes
       owner: "{{ user }}"

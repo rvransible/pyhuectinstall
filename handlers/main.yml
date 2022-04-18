@@ -4,6 +4,7 @@
     become: true
     ansible.builtin.systemd:
       name: pyhuect.service
+      enabled: yes
       state: restarted
 
   - name: Reload the systemd daemon

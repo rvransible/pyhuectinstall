@@ -20,6 +20,7 @@
     ansible.builtin.git:
       repo: git@github.com:robertreems/pyhuect.git
       dest: "/home/{{ user }}/pyhuect/"
+      version: main
     notify: (re)start the pyhuect.service
 
   - name: Set config file
@@ -32,6 +33,15 @@
         ip = {{ hueIP }}
       state: present
       create: yes
+      owner: "{{ user }}"
+    notify: (re)start the pyhuect.service
+
+  - name: Set colortempschema
+    become: true
+    become_user: "{{ user }}"
+    ansible.builtin.template:
+      src: ./templates/colortempschema.j2
+      dest: "/home/{{ user }}/.hue/colortempschema.json"
       owner: "{{ user }}"
     notify: (re)start the pyhuect.service
 
